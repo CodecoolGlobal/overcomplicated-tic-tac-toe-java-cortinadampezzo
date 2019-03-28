@@ -1,0 +1,45 @@
+
+.container {
+    margin-top: 15px;
+}
+header.media {
+    margin-bottom: 15px;
+}
+header .media-right {
+    text-align: center;
+    padding-top: 10px;
+}
+header .media-object {
+    width: 90px;
+    height: 90px;
+    margin: 10px;
+    border-radius: 6px;
+    box-shadow: 0 0 0 8px #303030;
+}
+
+.game-container {
+    max-width: 450px;
+}
+.game-container .row {
+    margin-bottom: 2rem;
+}
+.game-container .square {
+    width: 100%;
+    height: 0;
+    padding-top: 30%;
+    padding-bottom: 66%;
+    font-size: 3rem;
+}
+
+.funfact {
+    margin-top: 21px;
+}
+
+footer {
+    background: #464545;
+    margin-top: 20px;
+    padding: 20px 0 50px 0;
+}
+footer img {
+    filter: invert(100%) contrast(0.45);
+}

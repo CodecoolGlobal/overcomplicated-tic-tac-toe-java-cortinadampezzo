@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="author" content="Codecool"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Overcomplicated TicTacToe</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/darkly/bootstrap.min.css" rel="stylesheet" integrity="sha384-S7YMK1xjUjSpEnF4P8hPUcgjXYLZKK3fQW1j5ObLSl787II9p8RO9XUGehRmKsxd" crossorigin="anonymous"/>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"/>
+    <link href="/style.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <header class="media">
+            <div class="media-body">
+                <h1 class="media-heading">The coolest TicTacToe in the World</h1>
+                <p>OK, just a bit overcomplicated...</p>
+            </div>
+            <div class="media-right">
+                <span class="media-heading" th:text="${player.userName}"/>
+                <img class="media-object" th:src="${avatar_uri}" alt="avatar"/>
+            </div>
+        </header>
+
+        <div class="modal fade" id="changeNameModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Change your name here:</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form action="#" th:action="@{/changeplayerusername}" th:object="${player}" method="post">
+                            <div class="form-group">
+                                <label for="newname">Your new name:</label>
+                                <input type="text" th:field="*{userName}" id="newname" class="form-control input-sm"/>
+                            </div>
+                            <input type="submit" value="Change" class="btn btn-default"/>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-9">
+                <h2>Welcome <span th:text="${player.userName}"/>!</h2>
+                <a href="/game" class="btn btn-default">Start a new game!</a>
+            </div>
+            <div class="col-xs-3">
+                <div class="text-right">
+                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#changeNameModal">
+                        Change name
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</body>
+</html>
