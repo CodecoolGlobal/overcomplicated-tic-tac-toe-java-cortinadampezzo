@@ -12,96 +12,114 @@
     <link href="/style.css" rel="stylesheet" />
 </head>
 <body>
-    <div class="container">
-        <header class="media">
-            <div class="media-body">
-                <h1 class="media-heading">The coolest TicTacToe in the World</h1>
-                <p>OK, just a bit overcomplicated...</p>
-            </div>
-            <div class="media-right">
-                <span class="media-heading" th:text="${player.userName}"/>
-                <img class="media-object" th:src="${avatar_uri}" alt="avatar"/>
-            </div>
-        </header>
-
-        <div class="modal fade" id="changeNameModal" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Change your name here:</h4>
-                    </div>
-                    <div class="modal-body">
-                        <form action="#" th:action="@{/changeplayerusername}" th:object="${player}" method="post">
-                            <div class="form-group">
-                                <label for="newname">Your new name:</label>
-                                <input type="text" th:field="*{userName}" id="newname" class="form-control input-sm"/>
-                            </div>
-                            <input type="submit" value="Change" class="btn btn-default"/>
-                        </form>
-                    </div>
-                </div>
-            </div>
+<div class="container">
+    <header class="media">
+        <div class="media-body">
+            <h1 class="media-heading">The coolest TicTacToe in the World</h1>
+            <p>OK, just a bit overcomplicated...</p>
         </div>
+        <div class="media-right">
+            <span class="media-heading" th:text="${player.userName}"/>
+            <img class="media-object" th:src="${avatar_uri}" alt="avatar"/>
+        </div>
+    </header>
 
-        <div class="row">
-            <div class="col-xs-12 col-sm-6 col-sm-offset-3">
-                <div class="container-fluid game-container">
-                    <div class="row">
-                        <div class="col-xs-4">
-                            <a href="/game-move?move=0" class="btn btn-default square">&nbsp;</a>
-                        </div>
-                        <div class="col-xs-4">
-                            <a href="/game-move?move=1" class="btn btn-default square"><i class="fa fa-circle-o" aria-hidden="true"></i></a>
-                        </div>
-                        <div class="col-xs-4">
-                            <a href="/game-move?move=2" class="btn btn-default square"><i class="fa fa-times" aria-hidden="true"></i></a>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-4">
-                            <a href="/game-move?move=3" class="btn btn-default square">&nbsp;</a>
-                        </div>
-                        <div class="col-xs-4">
-                            <a href="/game-move?move=4" class="btn btn-default square">&nbsp;</a>
-                        </div>
-                        <div class="col-xs-4">
-                            <a href="/game-move?move=5" class="btn btn-default square">&nbsp;</a>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-4">
-                            <a href="/game-move?move=6" class="btn btn-default square">&nbsp;</a>
-                        </div>
-                        <div class="col-xs-4">
-                            <a href="/game-move?move=7" class="btn btn-default square">&nbsp;</a>
-                        </div>
-                        <div class="col-xs-4">
-                            <a href="/game-move?move=8" class="btn btn-default square">&nbsp;</a>
-                        </div>
-                    </div>
+    <div class="modal fade" id="changeNameModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Change your name here:</h4>
                 </div>
-            </div>
-            <div class="col-xs-12 col-sm-3">
-                <div class="text-right">
-                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#changeNameModal">
-                        Change name
-                    </button>
-                    <p class="lead funfact" th:utext="${funfact}"></p>
+                <div class="modal-body">
+                    <form action="#" th:action="@{/changeplayerusername}" th:object="${player}" method="post">
+                        <div class="form-group">
+                            <label for="newname">Your new name:</label>
+                            <input type="text" th:field="*{userName}" id="newname" class="form-control input-sm"/>
+                        </div>
+                        <input type="submit" value="Change" class="btn btn-default"/>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12 text-center">
-                    <img th:src="${comic_uri}" alt="Comic placeholder"/>
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+            <div class="container-fluid game-container">
+                <div class="row">
+                    <div class="col-xs-4" th:switch="${game.getField1()}">
+                        <a href="/game-move?move=0" class="btn btn-default square" th:case="0">&nbsp;</a>
+                        <a href="/game-move?move=0" class="btn btn-default square" th:case="1"><i class="fa fa-circle-o" aria-hidden="true"></i></a>
+                        <a href="/game-move?move=0" class="btn btn-default square" th:case="2"><i class="fa fa-times" aria-hidden="true"></i></a>
+                    </div>
+                    <div class="col-xs-4" th:switch="${game.getField2()}">
+                        <a href="/game-move?move=1" class="btn btn-default square" th:case="0">&nbsp;</a>
+                        <a href="/game-move?move=1" class="btn btn-default square" th:case="1"><i class="fa fa-circle-o" aria-hidden="true"></i></a>
+                        <a href="/game-move?move=1" class="btn btn-default square" th:case="2"><i class="fa fa-times" aria-hidden="true"></i></a>
+                    </div>
+                    <div class="col-xs-4" th:switch="${game.getField3()}">
+                        <a href="/game-move?move=2" class="btn btn-default square" th:case="0">&nbsp;</a>
+                        <a href="/game-move?move=2" class="btn btn-default square" th:case="1"><i class="fa fa-circle-o" aria-hidden="true"></i></a>
+                        <a href="/game-move?move=2" class="btn btn-default square" th:case="2"><i class="fa fa-times" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-4" th:switch="${game.getField4()}">
+                        <a href="/game-move?move=3" class="btn btn-default square" th:case="0">&nbsp;</a>
+                        <a href="/game-move?move=3" class="btn btn-default square" th:case="1"><i class="fa fa-circle-o" aria-hidden="true"></i></a>
+                        <a href="/game-move?move=3" class="btn btn-default square" th:case="2"><i class="fa fa-times" aria-hidden="true"></i></a>
+                    </div>
+                    <div class="col-xs-4" th:switch="${game.getField5()}">
+                        <a href="/game-move?move=4" class="btn btn-default square" th:case="0">&nbsp;</a>
+                        <a href="/game-move?move=4" class="btn btn-default square" th:case="1"><i class="fa fa-circle-o" aria-hidden="true"></i></a>
+                        <a href="/game-move?move=4" class="btn btn-default square" th:case="2"><i class="fa fa-times" aria-hidden="true"></i></a>
+                    </div>
+                    <div class="col-xs-4" th:switch="${game.getField6()}">
+                        <a href="/game-move?move=5" class="btn btn-default square" th:case="0">&nbsp;</a>
+                        <a href="/game-move?move=5" class="btn btn-default square" th:case="1"><i class="fa fa-circle-o" aria-hidden="true"></i></a>
+                        <a href="/game-move?move=5" class="btn btn-default square" th:case="2"><i class="fa fa-times" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-4" th:switch="${game.getField7()}">
+                        <a href="/game-move?move=6" class="btn btn-default square" th:case="0">&nbsp;</a>
+                        <a href="/game-move?move=6" class="btn btn-default square" th:case="1"><i class="fa fa-circle-o" aria-hidden="true"></i></a>
+                        <a href="/game-move?move=6" class="btn btn-default square" th:case="2"><i class="fa fa-times" aria-hidden="true"></i></a>
+                    </div>
+                    <div class="col-xs-4" th:switch="${game.getField8()}">
+                        <a href="/game-move?move=7" class="btn btn-default square" th:case="0">&nbsp;</a>
+                        <a href="/game-move?move=7" class="btn btn-default square" th:case="1"><i class="fa fa-circle-o" aria-hidden="true"></i></a>
+                        <a href="/game-move?move=7" class="btn btn-default square" th:case="2"><i class="fa fa-times" aria-hidden="true"></i></a>
+                    </div>
+                    <div class="col-xs-4" th:switch="${game.getField9()}">
+                        <a href="/game-move?move=8" class="btn btn-default square" th:case="0">&nbsp;</a>
+                        <a href="/game-move?move=8" class="btn btn-default square" th:case="1"><i class="fa fa-circle-o" aria-hidden="true"></i></a>
+                        <a href="/game-move?move=8" class="btn btn-default square" th:case="2"><i class="fa fa-times" aria-hidden="true"></i></a>
+                    </div>
                 </div>
             </div>
         </div>
-    </footer>
+        <div class="col-xs-12 col-sm-3">
+            <div class="text-right">
+                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#changeNameModal">
+                    Change name
+                </button>
+                <p class="lead funfact" th:utext="${funfact}"></p>
+            </div>
+        </div>
+    </div>
+</div>
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 text-center">
+                <img th:src="${comic_uri}" alt="Comic placeholder"/>
+            </div>
+        </div>
+    </div>
+</footer>
 
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </body>
 </html>

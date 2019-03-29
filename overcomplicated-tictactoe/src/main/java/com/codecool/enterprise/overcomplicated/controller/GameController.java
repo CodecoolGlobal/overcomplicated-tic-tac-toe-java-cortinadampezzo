@@ -1,7 +1,9 @@
 package com.codecool.enterprise.overcomplicated.controller;
 
 import com.codecool.enterprise.overcomplicated.model.Player;
-import com.codecool.enterprise.overcomplicated.model.TictactoeGame;
+import com.codecool.enterprise.overcomplicated.model.TicTacToeGame;
+import com.codecool.enterprise.overcomplicated.service.GameService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -10,14 +12,17 @@ import org.springframework.web.bind.annotation.*;
 @SessionAttributes({"player", "game"})
 public class GameController {
 
+    @Autowired
+    private GameService gameService;
+
     @ModelAttribute("player")
     public Player getPlayer() {
         return new Player();
     }
 
     @ModelAttribute("game")
-    public TictactoeGame getGame() {
-        return new TictactoeGame();
+    public TicTacToeGame getGame() {
+        return new TicTacToeGame();
     }
 
     @ModelAttribute("avatar_uri")
@@ -43,8 +48,9 @@ public class GameController {
     }
 
     @GetMapping(value = "/game-move")
-    public String gameMove(@ModelAttribute("player") Player player, @ModelAttribute("move") int move) {
-        System.out.println("Player moved " + move);
+    public String gameMove(@ModelAttribute("player") Player player, @ModelAttribute("game") TicTacToeGame tictactoeGame,
+                           @ModelAttribute("move") int move) throws Exception {
+        gameService.gameMove(tictactoeGame, move);
         return "redirect:/game";
     }
 }
