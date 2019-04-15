@@ -3,6 +3,9 @@ package com.codecool.enterprise.overcomplicated.controller;
 import com.codecool.enterprise.overcomplicated.model.Player;
 import com.codecool.enterprise.overcomplicated.model.TicTacToeGame;
 import com.codecool.enterprise.overcomplicated.service.GameService;
+import com.codecool.enterprise.overcomplicated.service.GetAvatarService;
+import com.codecool.enterprise.overcomplicated.service.GetComicService;
+import com.codecool.enterprise.overcomplicated.service.GetFunfactService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +17,15 @@ public class GameController {
 
     @Autowired
     private GameService gameService;
+
+    @Autowired
+    private GetFunfactService funfactService;
+
+    @Autowired
+    private GetComicService comicService;
+
+    @Autowired
+    private GetAvatarService avatarService;
 
     @ModelAttribute("player")
     public Player getPlayer() {
@@ -27,7 +39,7 @@ public class GameController {
 
     @ModelAttribute("avatar_uri")
     public String getAvatarUri() {
-        return "https://robohash.org/codecool";
+        return avatarService.getAvatar(getPlayer().getUserName());
     }
 
     @GetMapping(value = "/")
@@ -37,13 +49,14 @@ public class GameController {
 
     @PostMapping(value="/changeplayerusername")
     public String changPlayerUserName(@ModelAttribute Player player) {
+        avatarService.getAvatar(player.getUserName());
         return "redirect:/game";
     }
-
     @GetMapping(value = "/game")
     public String gameView(@ModelAttribute("player") Player player, Model model) {
-        model.addAttribute("funfact", "&quot;Chuck Norris knows the last digit of pi.&quot;");
-        model.addAttribute("comic_uri", "https://imgs.xkcd.com/comics/bad_code.png");
+        model.addAttribute("funfact", funfactService.getFunfact());
+        model.addAttribute("comic_uri", comicService.getComic());
+        model.addAttribute("avatar_uri", avatarService.getAvatar(player.getUserName()));
         return "game";
     }
 
